@@ -14,4 +14,10 @@ class ServerFailure extends Failure {
   }) : super(errorMessage: message);
 }
 
+class InternetConnectionFailure extends Failure {
+  const InternetConnectionFailure({
+    String message = 'Pas de connexion internet',
+  }) : super(errorMessage: message);
+}
+
 class CacheFailure extends Failure {}

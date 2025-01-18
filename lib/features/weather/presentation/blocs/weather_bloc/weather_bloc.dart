@@ -7,9 +7,10 @@ part 'weather_event.dart';
 part 'weather_state.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  final GetWeather getWeather;
+  final GetWeather getWeatherUsecase;
 
-  WeatherBloc({required this.getWeather}) : super(WeatherState.initialState()) {
+  WeatherBloc({required this.getWeatherUsecase})
+      : super(WeatherState.initialState()) {
     on<WeatherRequested>(_onWeatherRequested);
   }
 
@@ -17,6 +18,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     WeatherRequested event,
     Emitter<WeatherState> emit,
   ) async {
-    final result = await getWeather(const GetWeatherParams());
+    final result = await getWeatherUsecase(
+      const GetWeatherParams(latitude: 48.858, longitude: 3.294),
+    );
   }
 }

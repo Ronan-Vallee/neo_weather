@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
+import '../../domain/entities/weather.dart';
 import '../../domain/repositories/interface_weather_repository.dart';
 import '../../domain/usecases/get_weather.dart';
 import '../datasources/weather_remote_data_source.dart';
@@ -11,11 +13,16 @@ class WeatherRepository implements IWeatherRepository {
   WeatherRepository({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, void>> getWeather() async {
+  Future<Either<Failure, Weather>> getWeather(
+    double latitude,
+    double longitude,
+  ) async {
     try {
-      final result = await remoteDataSource.get();
+      final result = await remoteDataSource.get(longitude, latitude);
       return Right(result);
-    } catch (e) {
+    } on InternetConnectionException {
+      return const Left(InternetConnectionFailure());
+    } catch (_) {
       return const Left(GetWeatherFailure());
     }
   }

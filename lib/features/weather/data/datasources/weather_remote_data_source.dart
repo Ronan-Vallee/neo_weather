@@ -1,10 +1,21 @@
+import '../../../../api/open_weather_api_client.dart';
+import '../models/weather_model.dart';
+
 abstract class IWeatherRemoteDataSource {
-  Future<void> get();
+  Future<WeatherModel> get(double latitude, double longitude);
 }
 
 class WeatherRemoteDataSource implements IWeatherRemoteDataSource {
-  WeatherRemoteDataSource();
+  final OpenWeatherAPIClient apiClient;
+
+  WeatherRemoteDataSource({required this.apiClient});
 
   @override
-  Future<void> get() async {}
+  Future<WeatherModel> get(double latitude, double longitude) async {
+    final data = await apiClient.getWeatherData(
+      latitude: latitude,
+      longitude: longitude,
+    );
+    return WeatherModel.fromJson(data);
+  }
 }
