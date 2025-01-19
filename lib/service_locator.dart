@@ -2,6 +2,11 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 import 'api/open_weather_api_client.dart';
+import 'features/city/data/datasources/city_remote_data_source.dart';
+import 'features/city/data/repositories/city_repository.dart';
+import 'features/city/domain/repositories/interface_city_repository.dart';
+import 'features/city/domain/usecases/search.dart';
+import 'features/city/presentation/blocs/city_search_bloc/city_search_bloc.dart';
 import 'features/weather/data/datasources/weather_remote_data_source.dart';
 import 'features/weather/data/repositories/weather_repository.dart';
 import 'features/weather/domain/repositories/interface_weather_repository.dart';
@@ -26,6 +31,13 @@ void init() {
   // data source
   locator.registerLazySingleton<IWeatherRemoteDataSource>(
     () => WeatherRemoteDataSource(apiClient: locator()),
+  );
+
+  /// *** CitySearch *** ///
+
+  // data source
+  locator.registerLazySingleton<ICityRemoteDataSource>(
+    () => CityRemoteDataSource(apiClient: locator()),
   );
 
   /// *** API *** ///
