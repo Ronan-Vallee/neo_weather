@@ -34,6 +34,9 @@ void init() {
   );
 
   /// *** CitySearch *** ///
+  // usecase
+  locator.registerLazySingleton(() => Search(locator()));
+
   // repository
   locator.registerLazySingleton<ICityRepository>(
     () => CityRepository(remoteDataSource: locator()),
