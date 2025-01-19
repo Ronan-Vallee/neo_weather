@@ -52,4 +52,16 @@ class OpenWeatherAPIClient {
       },
     );
   }
+
+  Future<List<dynamic>> searchCities(String query) async {
+    final List<dynamic> response = await get(
+      endpoint: '/geo/1.0/direct',
+      queryParameters: {
+        'q': query,
+        'limit': '10',
+      },
+    );
+
+    return response;
+  }
 }

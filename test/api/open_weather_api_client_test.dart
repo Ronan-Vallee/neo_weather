@@ -106,4 +106,52 @@ void main() {
       },
     );
   });
+
+  group('searchCities', () {
+    const tQuery = 'Paris';
+    final tQueryParameters = {'q': tQuery, 'limit': '10'};
+    final tURI = Uri.https(
+      OpenWeatherAPIClient.baseUrl,
+      '/geo/1.0/direct',
+      {
+        ...tQueryParameters,
+        'appid': APIKeys.openWeatherAPIKey,
+        'lang': 'fr',
+        'units': 'metric',
+      },
+    );
+
+    test(
+      'should return a list of cities when the http call completes successfully.',
+      () async {
+        // arrange
+        final response = json.encode([
+          {
+            'name': 'Paris',
+            'state': 'Ile-de-France',
+            'country': 'FR',
+            'lat': 48.8566,
+            'lon': 2.3522,
+          },
+          {
+            'name': 'Paris',
+            'state': 'Ile-de-France',
+            'country': 'FR',
+            'lat': 48.4526,
+            'lon': 2.1522,
+          },
+        ]);
+        when(() => mockHttpClient.get(tURI)).thenAnswer(
+          (_) async => http.Response(response, 200),
+        );
+
+        // act
+        final result = await apiClient.searchCities(tQuery);
+
+        // assert
+        expect(result, json.decode(response));
+        expect(result, isA<List>());
+      },
+    );
+  });
 }
