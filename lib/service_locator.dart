@@ -34,6 +34,9 @@ void init() {
   );
 
   /// *** CitySearch *** ///
+  // bloc
+  locator.registerFactory(() => CitySearchBloc(searchUsecase: locator()));
+
   // usecase
   locator.registerLazySingleton(() => Search(locator()));
 
