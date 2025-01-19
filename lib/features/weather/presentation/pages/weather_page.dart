@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:neo_weather/features/weather/presentation/blocs/weather_bloc/weather_bloc.dart';
+
+import '../../../../router.dart';
+import '../blocs/weather_bloc/weather_bloc.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage();
@@ -8,11 +10,22 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: OutlinedButton(
-          onPressed: () =>
-              context.read<WeatherBloc>().add(const WeatherRequested()),
-          child: const Text("Fetch Weather"),
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            OutlinedButton(
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(PagePaths.citySearch),
+              child: const Text("Search city"),
+            ),
+            OutlinedButton(
+              onPressed: () =>
+                  context.read<WeatherBloc>().add(const WeatherRequested()),
+              child: const Text("Fetch Weather"),
+            ),
+          ],
         ),
       ),
     );
