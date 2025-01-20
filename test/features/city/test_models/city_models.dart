@@ -2,6 +2,8 @@ import 'package:neo_weather/features/city/data/models/city_model.dart';
 
 const tCity = tCityModel;
 
+const tCityList = [tCity];
+
 const tCityModel = CityModel(
   name: 'Paris',
   latitude: 48.8566,

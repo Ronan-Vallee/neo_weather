@@ -16,20 +16,18 @@ void main() {
     usecase = GetSavedCities(mockCityRepository);
   });
 
-  final tCityList = [tCity];
-
   test(
     'should return a list of saved cities as Right from the repository.',
     () async {
       // arrange
       when(() => mockCityRepository.getSavedCities())
-          .thenAnswer((_) async => Right(tCityList));
+          .thenAnswer((_) async => const Right(tCityList));
 
       // act
       final result = await usecase(NoParams());
 
       // assert
-      expect(result, Right(tCityList));
+      expect(result, const Right(tCityList));
       verify(() => mockCityRepository.getSavedCities()).called(1);
       verifyNoMoreInteractions(mockCityRepository);
     },

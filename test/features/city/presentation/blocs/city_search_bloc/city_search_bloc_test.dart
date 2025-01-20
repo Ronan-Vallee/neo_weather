@@ -18,7 +18,6 @@ void main() {
   });
 
   const tCityToSearch = 'Paris';
-  final tCityList = [tCity];
 
   test('initial state should be CitySearchState.initialState()', () {
     expect(bloc.state, CitySearchState.initialState());
@@ -28,7 +27,8 @@ void main() {
     'should emit loading then loaded with the received city list when '
     'data is gotten successfully.',
     build: () {
-      when(() => mockSearch(any())).thenAnswer((_) async => Right(tCityList));
+      when(() => mockSearch(any()))
+          .thenAnswer((_) async => const Right(tCityList));
       return bloc;
     },
     act: (bloc) => bloc.add(const CitySearchSubmitted(query: tCityToSearch)),

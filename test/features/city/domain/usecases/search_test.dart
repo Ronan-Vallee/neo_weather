@@ -16,21 +16,20 @@ void main() {
   });
 
   const tCityToSearch = 'Paris';
-  final tCityList = [tCity];
 
   test(
     'should return a list of City when the call to repository is successful.',
     () async {
       // arrange
       when(() => mockCityRepository.search(any()))
-          .thenAnswer((_) async => Right(tCityList));
+          .thenAnswer((_) async => const Right(tCityList));
 
       // act
       final result =
           await usecase(const SearchParams(cityToSearch: tCityToSearch));
 
       // assert
-      expect(result, Right(tCityList));
+      expect(result, const Right(tCityList));
       verify(() => mockCityRepository.search(tCityToSearch)).called(1);
       verifyNoMoreInteractions(mockCityRepository);
     },
