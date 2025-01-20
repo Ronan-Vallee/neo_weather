@@ -7,6 +7,9 @@ import 'features/city/data/datasources/city_local_data_source.dart';
 import 'features/city/data/datasources/city_remote_data_source.dart';
 import 'features/city/data/repositories/city_repository.dart';
 import 'features/city/domain/repositories/interface_city_repository.dart';
+import 'features/city/domain/usecases/get_saved_cities.dart';
+import 'features/city/domain/usecases/remove_city.dart';
+import 'features/city/domain/usecases/save_city.dart';
 import 'features/city/domain/usecases/search.dart';
 import 'features/city/presentation/blocs/city_search_bloc/city_search_bloc.dart';
 import 'features/weather/data/datasources/weather_remote_data_source.dart';
@@ -41,8 +44,11 @@ Future<void> init() async {
   // bloc
   locator.registerFactory(() => CitySearchBloc(searchUsecase: locator()));
 
-  // usecase
+  // usecases
   locator.registerLazySingleton(() => Search(locator()));
+  locator.registerLazySingleton(() => GetSavedCities(locator()));
+  locator.registerLazySingleton(() => SaveCity(locator()));
+  locator.registerLazySingleton(() => RemoveCity(locator()));
 
   // repository
   locator.registerLazySingleton<ICityRepository>(
