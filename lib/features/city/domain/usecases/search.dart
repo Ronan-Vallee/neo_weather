@@ -12,7 +12,7 @@ class Search implements UseCase<List<City>, SearchParams> {
   Search(this.repository);
 
   @override
-  Future<Either<Failure, List<City>>> call([SearchParams? params]) async {
+  Future<Either<Failure, List<City>>> call(SearchParams? params) async {
     return await repository.search(params!.cityToSearch);
   }
 }
