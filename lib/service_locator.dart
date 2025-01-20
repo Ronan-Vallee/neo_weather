@@ -52,7 +52,10 @@ Future<void> init() async {
 
   // repository
   locator.registerLazySingleton<ICityRepository>(
-    () => CityRepository(remoteDataSource: locator()),
+    () => CityRepository(
+      remoteDataSource: locator(),
+      localDataSource: locator(),
+    ),
   );
 
   // data sources
