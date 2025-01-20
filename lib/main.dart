@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'features/city/presentation/blocs/city_search_bloc/city_search_bloc.dart';
 import 'features/weather/presentation/blocs/weather_bloc/weather_bloc.dart';
 import 'router.dart';
 import 'service_locator.dart' as di;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+
   di.init();
+
   runApp(MyApp());
 }
 
