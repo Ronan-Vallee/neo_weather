@@ -1,7 +1,9 @@
 import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 import 'api/open_weather_api_client.dart';
+import 'features/city/data/datasources/city_local_data_source.dart';
 import 'features/city/data/datasources/city_remote_data_source.dart';
 import 'features/city/data/repositories/city_repository.dart';
 import 'features/city/domain/repositories/interface_city_repository.dart';
@@ -15,7 +17,9 @@ import 'features/weather/presentation/blocs/weather_bloc/weather_bloc.dart';
 
 final locator = GetIt.instance;
 
-void init() {
+Future<void> init() async {
+  final cityBox = await Hive.openBox<String>('cityBox');
+
   /// *** Weather *** ///
   // bloc
   locator.registerFactory(() => WeatherBloc(getWeatherUsecase: locator()));
@@ -33,7 +37,7 @@ void init() {
     () => WeatherRemoteDataSource(apiClient: locator()),
   );
 
-  /// *** CitySearch *** ///
+  /// *** City *** ///
   // bloc
   locator.registerFactory(() => CitySearchBloc(searchUsecase: locator()));
 
@@ -45,9 +49,12 @@ void init() {
     () => CityRepository(remoteDataSource: locator()),
   );
 
-  // data source
+  // data sources
   locator.registerLazySingleton<ICityRemoteDataSource>(
     () => CityRemoteDataSource(apiClient: locator()),
+  );
+  locator.registerLazySingleton<ICityLocalDataSource>(
+    () => CityLocalDataSource(cityBox: locator()),
   );
 
   /// *** API *** ///
@@ -55,4 +62,5 @@ void init() {
 
   /// *** External *** ///
   locator.registerLazySingleton(() => http.Client());
+  locator.registerSingleton<Box<String>>(cityBox);
 }

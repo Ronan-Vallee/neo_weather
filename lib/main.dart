@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 
-  di.init();
+  await di.init();
 
   runApp(MyApp());
 }

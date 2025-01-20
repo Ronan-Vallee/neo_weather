@@ -23,6 +23,16 @@ class CityModel extends City {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'lat': latitude,
+      'lon': longitude,
+      'country': country,
+      'state': state,
+    };
+  }
+
   @override
   List<Object?> get props => [name, country, state];
 }
