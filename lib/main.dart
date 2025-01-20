@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'features/city/presentation/blocs/city_search_bloc/city_search_bloc.dart';
+import 'features/city/presentation/blocs/saved_cities_bloc/saved_cities_bloc.dart';
 import 'features/weather/presentation/blocs/weather_bloc/weather_bloc.dart';
 import 'router.dart';
 import 'service_locator.dart' as di;
@@ -30,6 +31,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => di.locator<CitySearchBloc>(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              di.locator<SavedCitiesBloc>()..add(const SavedCitiesRequested()),
         ),
       ],
       child: MaterialApp(
