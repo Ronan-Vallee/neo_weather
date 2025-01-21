@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'features/city/presentation/pages/city_search_page.dart';
-import 'features/weather/presentation/pages/weather_page.dart';
+import 'features/weather/presentation/pages/home_page.dart';
 
 class PagePaths {
   static const String home = '/';
@@ -12,7 +12,7 @@ class AppRouter {
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case PagePaths.home:
-        return MaterialPageRoute(builder: (_) => const WeatherPage());
+        return MaterialPageRoute(builder: (_) => const HomePage());
       case PagePaths.citySearch:
         return MaterialPageRoute(builder: (_) => const CitySearchPage());
     }

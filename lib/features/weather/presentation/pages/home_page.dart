@@ -5,8 +5,8 @@ import '../../../../router.dart';
 import '../../../city/presentation/blocs/saved_cities_bloc/saved_cities_bloc.dart';
 import '../blocs/weather_bloc/weather_bloc.dart';
 
-class WeatherPage extends StatelessWidget {
-  const WeatherPage();
+class HomePage extends StatelessWidget {
+  const HomePage();
 
   @override
   Widget build(BuildContext context) {
