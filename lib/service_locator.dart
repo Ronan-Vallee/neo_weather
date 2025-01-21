@@ -22,7 +22,6 @@ import 'features/weather/data/datasources/weather_remote_data_source.dart';
 import 'features/weather/data/repositories/weather_repository.dart';
 import 'features/weather/domain/repositories/interface_weather_repository.dart';
 import 'features/weather/domain/usecases/get_weather.dart';
-import 'features/weather/presentation/blocs/weather_bloc/weather_bloc.dart';
 
 final locator = GetIt.instance;
 
@@ -30,9 +29,6 @@ Future<void> init() async {
   final cityBox = await Hive.openBox<String>('cityBox');
 
   /// *** Weather *** ///
-  // bloc
-  locator.registerFactory(() => WeatherBloc(getWeatherUsecase: locator()));
-
   // usecase
   locator.registerLazySingleton(() => GetWeather(locator()));
 
