@@ -6,6 +6,7 @@ import 'api/open_weather_api_client.dart';
 import 'core/services/location_service.dart';
 import 'features/city/data/datasources/city_local_data_source.dart';
 import 'features/city/data/datasources/city_remote_data_source.dart';
+import 'features/city/data/datasources/location_data_source.dart';
 import 'features/city/data/repositories/city_repository.dart';
 import 'features/city/domain/repositories/interface_city_repository.dart';
 import 'features/city/domain/usecases/get_saved_cities_weather.dart';
@@ -78,6 +79,9 @@ Future<void> init() async {
   );
   locator.registerLazySingleton<ICityLocalDataSource>(
     () => CityLocalDataSource(cityBox: locator()),
+  );
+  locator.registerLazySingleton<ILocationDataSource>(
+    () => LocationDataSource(locationService: locator()),
   );
 
   /// *** API *** ///
