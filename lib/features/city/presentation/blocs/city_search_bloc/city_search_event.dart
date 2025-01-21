@@ -15,3 +15,10 @@ class CitySearchSubmitted extends CitySearchEvent {
   @override
   List<Object> get props => [query];
 }
+
+class CitySearchFromLocationRequested extends CitySearchEvent {
+  const CitySearchFromLocationRequested();
+
+  @override
+  List<Object> get props => [];
+}

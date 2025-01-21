@@ -48,7 +48,12 @@ Future<void> init() async {
 
   /// *** City *** ///
   // blocs
-  locator.registerFactory(() => CitySearchBloc(searchUsecase: locator()));
+  locator.registerFactory(
+    () => CitySearchBloc(
+      searchUsecase: locator(),
+      searchFromLocationUsecase: locator(),
+    ),
+  );
   locator.registerFactory(
     () => SavedCitiesBloc(
       getSavedCitiesUsecase: locator(),

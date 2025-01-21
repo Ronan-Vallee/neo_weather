@@ -21,10 +21,22 @@ class CitySearchPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
         child: Column(
           children: [
-            SearchBar(
-              onSubmitted: (value) => context
-                  .read<CitySearchBloc>()
-                  .add(CitySearchSubmitted(query: value)),
+            Row(
+              children: [
+                Expanded(
+                  child: SearchBar(
+                    onSubmitted: (value) => context
+                        .read<CitySearchBloc>()
+                        .add(CitySearchSubmitted(query: value)),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.my_location_rounded),
+                  onPressed: () => context
+                      .read<CitySearchBloc>()
+                      .add(const CitySearchFromLocationRequested()),
+                ),
+              ],
             ),
             Expanded(
               child: BlocBuilder<CitySearchBloc, CitySearchState>(
