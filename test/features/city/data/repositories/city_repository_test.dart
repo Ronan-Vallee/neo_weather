@@ -5,7 +5,7 @@ import 'package:neo_weather/core/errors/exceptions.dart';
 import 'package:neo_weather/core/errors/failures.dart';
 import 'package:neo_weather/features/city/data/repositories/city_repository.dart';
 import 'package:neo_weather/features/city/domain/entities/city.dart';
-import 'package:neo_weather/features/city/domain/usecases/get_saved_cities.dart';
+import 'package:neo_weather/features/city/domain/usecases/get_saved_cities_weather.dart';
 import 'package:neo_weather/features/city/domain/usecases/remove_city.dart';
 import 'package:neo_weather/features/city/domain/usecases/save_city.dart';
 import 'package:neo_weather/features/city/domain/usecases/search.dart';

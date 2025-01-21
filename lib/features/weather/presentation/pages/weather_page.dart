@@ -31,19 +31,23 @@ class WeatherPage extends StatelessWidget {
                     current.status == SavedCitiesStatus.loaded,
                 builder: (context, state) {
                   return ListView.builder(
-                    itemCount: state.cities.length,
+                    itemCount: state.cityWeatherList.length,
                     itemBuilder: (context, index) {
                       return Dismissible(
-                        key: ValueKey<String>(state.cities[index].name),
+                        key: ValueKey<String>(
+                            state.cityWeatherList[index].city.name),
                         onDismissed: (direction) => context
                             .read<SavedCitiesBloc>()
                             .add(SavedCitiesCityDismissed(
-                              city: state.cities[index],
+                              city: state.cityWeatherList[index].city,
                             )),
                         child: ListTile(
-                          title: Text(state.cities[index].name),
+                          leading: Text(state.cityWeatherList[index].weather
+                              .current.temperature.day
+                              .toString()),
+                          title: Text(state.cityWeatherList[index].city.name),
                           trailing: Text(
-                            "${state.cities[index].country}, ${state.cities[index].state}",
+                            "${state.cityWeatherList[index].city.country}, ${state.cityWeatherList[index].city.state}",
                           ),
                         ),
                       );

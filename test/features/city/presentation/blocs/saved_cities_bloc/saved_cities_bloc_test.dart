@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:neo_weather/core/interfaces/usecase.dart';
-import 'package:neo_weather/features/city/domain/usecases/get_saved_cities.dart';
+import 'package:neo_weather/features/city/domain/usecases/get_saved_cities_weather.dart';
 import 'package:neo_weather/features/city/domain/usecases/remove_city.dart';
 import 'package:neo_weather/features/city/domain/usecases/save_city.dart';
 import 'package:neo_weather/features/city/presentation/blocs/saved_cities_bloc/saved_cities_bloc.dart';
@@ -36,10 +36,10 @@ void main() {
 
   group('on SavedCitiesRequested', () {
     blocTest<SavedCitiesBloc, SavedCitiesState>(
-      'should emit loading then loaded with the received city list when '
+      'should emit loading then loaded with the received CityWeather list when '
       'getSavedCitiesUsecase is successful.',
       setUp: () => when(() => mockGetSavedCities(any()))
-          .thenAnswer((_) async => const Right(tCityList)),
+          .thenAnswer((_) async => Right(tCityWeatherList)),
       build: () => bloc,
       act: (bloc) => bloc.add(const SavedCitiesRequested()),
       expect: () => [
@@ -48,7 +48,7 @@ void main() {
         ),
         SavedCitiesState.initialState().copyWith(
           status: SavedCitiesStatus.loaded,
-          cities: tCityList,
+          cityWeatherList: tCityWeatherList,
         ),
       ],
       verify: (_) => verify(() => mockGetSavedCities(NoParams())).called(1),
@@ -81,7 +81,7 @@ void main() {
         when(() => mockSaveCity(any()))
             .thenAnswer((_) async => const Right(unit));
         when(() => mockGetSavedCities(any()))
-            .thenAnswer((_) async => const Right(tCityList));
+            .thenAnswer((_) async => Right(tCityWeatherList));
       },
       build: () => bloc,
       act: (bloc) => bloc.add(const SavedCitiesCitySelected(city: tCity)),
@@ -91,7 +91,7 @@ void main() {
         ),
         SavedCitiesState.initialState().copyWith(
           status: SavedCitiesStatus.loaded,
-          cities: tCityList,
+          cityWeatherList: tCityWeatherList,
         ),
       ],
       verify: (_) {
@@ -130,7 +130,7 @@ void main() {
         when(() => mockRemoveCity(any()))
             .thenAnswer((_) async => const Right(unit));
         when(() => mockGetSavedCities(any()))
-            .thenAnswer((_) async => const Right(tCityList));
+            .thenAnswer((_) async => Right(tCityWeatherList));
       },
       build: () => bloc,
       act: (bloc) => bloc.add(const SavedCitiesCityDismissed(city: tCity)),
@@ -140,7 +140,7 @@ void main() {
         ),
         bloc.state.copyWith(
           status: SavedCitiesStatus.loaded,
-          cities: tCityList,
+          cityWeatherList: tCityWeatherList,
         ),
       ],
       verify: (_) {

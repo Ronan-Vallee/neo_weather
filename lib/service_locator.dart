@@ -7,7 +7,7 @@ import 'features/city/data/datasources/city_local_data_source.dart';
 import 'features/city/data/datasources/city_remote_data_source.dart';
 import 'features/city/data/repositories/city_repository.dart';
 import 'features/city/domain/repositories/interface_city_repository.dart';
-import 'features/city/domain/usecases/get_saved_cities.dart';
+import 'features/city/domain/usecases/get_saved_cities_weather.dart';
 import 'features/city/domain/usecases/remove_city.dart';
 import 'features/city/domain/usecases/save_city.dart';
 import 'features/city/domain/usecases/search.dart';
@@ -54,7 +54,12 @@ Future<void> init() async {
 
   // usecases
   locator.registerLazySingleton(() => Search(locator()));
-  locator.registerLazySingleton(() => GetSavedCities(locator()));
+  locator.registerLazySingleton(
+    () => GetSavedCitiesWeather(
+      cityRepository: locator(),
+      weatherRepository: locator(),
+    ),
+  );
   locator.registerLazySingleton(() => SaveCity(locator()));
   locator.registerLazySingleton(() => RemoveCity(locator()));
 

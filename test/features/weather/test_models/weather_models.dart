@@ -2,7 +2,10 @@ import 'package:neo_weather/features/weather/data/models/temperature_model.dart'
 import 'package:neo_weather/features/weather/data/models/weather_condition_model.dart';
 import 'package:neo_weather/features/weather/data/models/weather_data_model.dart';
 import 'package:neo_weather/features/weather/data/models/weather_model.dart';
+import 'package:neo_weather/features/weather/domain/entities/weather.dart';
 import 'package:neo_weather/features/weather/domain/entities/weather_condition.dart';
+
+final Weather tWeather = tWeatherModel;
 
 final WeatherModel tWeatherModel = WeatherModel(
   latitude: 48.858,

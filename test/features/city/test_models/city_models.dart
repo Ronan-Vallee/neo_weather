@@ -1,5 +1,8 @@
+import 'package:neo_weather/core/entities/city_weather.dart';
 import 'package:neo_weather/features/city/data/models/city_model.dart';
 import 'package:neo_weather/features/city/domain/entities/city.dart';
+
+import '../../weather/test_models/weather_models.dart';
 
 const City tCity = tCityModel;
 
@@ -20,3 +23,12 @@ final Map<String, dynamic> tCityModelJSON = {
   'country': 'FR',
   'state': 'Ile-de-France',
 };
+
+/// *** CityWeather models *** ///
+
+final tCityWeather = CityWeather(
+  city: tCity,
+  weather: tWeather,
+);
+
+final List<CityWeather> tCityWeatherList = [tCityWeather];
