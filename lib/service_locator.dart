@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 import 'api/open_weather_api_client.dart';
+import 'core/services/location_service.dart';
 import 'features/city/data/datasources/city_local_data_source.dart';
 import 'features/city/data/datasources/city_remote_data_source.dart';
 import 'features/city/data/repositories/city_repository.dart';
@@ -81,6 +82,9 @@ Future<void> init() async {
 
   /// *** API *** ///
   locator.registerLazySingleton(() => OpenWeatherAPIClient(client: locator()));
+
+  /// *** Services *** ///
+  locator.registerLazySingleton(() => LocationService());
 
   /// *** External *** ///
   locator.registerLazySingleton(() => http.Client());
