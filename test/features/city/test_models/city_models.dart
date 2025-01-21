@@ -1,8 +1,9 @@
 import 'package:neo_weather/features/city/data/models/city_model.dart';
+import 'package:neo_weather/features/city/domain/entities/city.dart';
 
-const tCity = tCityModel;
+const City tCity = tCityModel;
 
-const tCityList = [tCity];
+const List<City> tCityList = [tCity];
 
 const tCityModel = CityModel(
   name: 'Paris',

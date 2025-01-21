@@ -118,7 +118,8 @@ void main() {
 
         // assert
         expect(result, const Right(unit));
-        verify(() => mockLocalDataSource.saveCity(tCity.toJson())).called(1);
+        verify(() => mockLocalDataSource.saveCity(tCityModel.toJson()))
+            .called(1);
       },
     );
 
@@ -134,7 +135,8 @@ void main() {
 
         // assert
         expect(result, const Left(SaveCityFailure()));
-        verify(() => mockLocalDataSource.saveCity(tCity.toJson())).called(1);
+        verify(() => mockLocalDataSource.saveCity(tCityModel.toJson()))
+            .called(1);
       },
     );
   });
