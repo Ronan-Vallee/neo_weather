@@ -9,6 +9,7 @@ import 'package:neo_weather/features/city/domain/usecases/get_saved_cities_weath
 import 'package:neo_weather/features/city/domain/usecases/remove_city.dart';
 import 'package:neo_weather/features/city/domain/usecases/save_city.dart';
 import 'package:neo_weather/features/city/domain/usecases/search.dart';
+import 'package:neo_weather/features/city/domain/usecases/search_from_location.dart';
 
 import '../../mocks/city_mocks.dart';
 import '../../test_models/city_models.dart';
@@ -60,6 +61,52 @@ void main() {
         // assert
         expect(result, const Left(SearchFailure()));
         verify(() => mockRemoteDataSource.get(tCityToSearch)).called(1);
+      },
+    );
+  });
+
+  group('searchFromLocation', () {
+    const tLatitude = 48.8566;
+    const tLongitude = 2.3522;
+    final tCityModelList = [tCityModel];
+
+    test(
+      'should return a list of City when '
+      'the call to remote data source is successful.',
+      () async {
+        // arrange
+        when(() => mockRemoteDataSource.getFromLocation(any(), any()))
+            .thenAnswer((_) async => tCityModelList);
+
+        // act
+        final result =
+            await repository.searchFromLocation(tLatitude, tLongitude);
+
+        // assert
+        expect(result, Right(tCityModelList));
+        verify(() =>
+                mockRemoteDataSource.getFromLocation(tLatitude, tLongitude))
+            .called(1);
+      },
+    );
+
+    test(
+      'should return a SearchFromLocationFailure when '
+      'the call to remote data source is unsuccessful.',
+      () async {
+        // arrange
+        when(() => mockRemoteDataSource.getFromLocation(any(), any()))
+            .thenThrow(ServerException());
+
+        // act
+        final result =
+            await repository.searchFromLocation(tLatitude, tLongitude);
+
+        // assert
+        expect(result, const Left(SearchFromLocationFailure()));
+        verify(() =>
+                mockRemoteDataSource.getFromLocation(tLatitude, tLongitude))
+            .called(1);
       },
     );
   });

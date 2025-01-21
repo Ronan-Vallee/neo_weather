@@ -1,13 +1,14 @@
 import 'package:dartz/dartz.dart';
-import 'package:neo_weather/features/city/domain/usecases/remove_city.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/city.dart';
 import '../../domain/repositories/interface_city_repository.dart';
-import '../../domain/usecases/get_saved_cities.dart';
+import '../../domain/usecases/get_saved_cities_weather.dart';
+import '../../domain/usecases/remove_city.dart';
 import '../../domain/usecases/save_city.dart';
 import '../../domain/usecases/search.dart';
+import '../../domain/usecases/search_from_location.dart';
 import '../datasources/city_local_data_source.dart';
 import '../datasources/city_remote_data_source.dart';
 import '../models/city_model.dart';
@@ -28,6 +29,20 @@ class CityRepository implements ICityRepository {
       return Right(result);
     } on ServerException {
       return const Left(SearchFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<City>>> searchFromLocation(
+    double latitude,
+    double longitude,
+  ) async {
+    try {
+      final result =
+          await remoteDataSource.getFromLocation(latitude, longitude);
+      return Right(result);
+    } catch (_) {
+      return const Left(SearchFromLocationFailure());
     }
   }
 
