@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:neo_weather/features/weather/presentation/widgets/sun_timing_widgets.dart';
 
 import '../../../../core/entities/city_weather.dart';
 import '../../../../core/theme/app_dimensions.dart';
 import '../widgets/hourly_forecast_widgets.dart';
 import '../widgets/main_weather_section.dart';
+import '../widgets/miscellaneous_stats_section.dart';
+import '../widgets/sun_timing_widgets.dart';
 import '../widgets/weather_details_header.dart';
 
 class WeatherDetailPage extends StatelessWidget {
@@ -31,6 +32,7 @@ class WeatherDetailPage extends StatelessWidget {
                 MainWeatherSection(weather: weather),
                 HourlyForecastSection(hourlyForecast: weather.hourly),
                 SunTimingSection(data: weather.current),
+                MiscellaneousStatsSection(data: weather.current),
               ],
             ),
           ),
