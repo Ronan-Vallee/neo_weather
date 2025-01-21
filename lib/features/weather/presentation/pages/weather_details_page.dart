@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neo_weather/features/weather/presentation/widgets/sun_timing_widgets.dart';
 
 import '../../../../core/entities/city_weather.dart';
 import '../../../../core/theme/app_dimensions.dart';
@@ -28,7 +29,8 @@ class WeatherDetailPage extends StatelessWidget {
               children: [
                 WeatherDetailsHeader(city: cityWeather.city),
                 MainWeatherSection(weather: weather),
-                HourlyForecastSection(hourlyForecast: weather.hourly)
+                HourlyForecastSection(hourlyForecast: weather.hourly),
+                SunTimingSection(data: weather.current),
               ],
             ),
           ),
