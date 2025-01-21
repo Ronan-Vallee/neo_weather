@@ -154,4 +154,87 @@ void main() {
       },
     );
   });
+
+  group('searchCitiesFromLocation', () {
+    const tLatitude = 48.8566;
+    const tLongitude = 2.3522;
+    final tQueryParameters = {
+      'lat': tLatitude.toString(),
+      'lon': tLongitude.toString(),
+      'limit': '5',
+    };
+    final tURI = Uri.https(
+      OpenWeatherAPIClient.baseUrl,
+      '/geo/1.0/reverse',
+      {
+        ...tQueryParameters,
+        'appid': APIKeys.openWeatherAPIKey,
+        'lang': 'fr',
+        'units': 'metric',
+      },
+    );
+
+    test(
+      'should return a list of cities when the http call completes successfully.',
+      () async {
+        // arrange
+        final response = json.encode([
+          {
+            'name': 'Paris',
+            'state': 'Ile-de-France',
+            'country': 'FR',
+            'lat': 48.8566,
+            'lon': 2.3522,
+          },
+          {
+            'name': 'Paris',
+            'state': 'Ile-de-France',
+            'country': 'FR',
+            'lat': 48.4526,
+            'lon': 2.1522,
+          },
+        ]);
+        when(() => mockHttpClient.get(tURI)).thenAnswer(
+          (_) async => http.Response(response, 200),
+        );
+
+        // act
+        final result =
+            await apiClient.searchCitiesFromLocation(tLatitude, tLongitude);
+
+        // assert
+        expect(result, json.decode(response));
+        expect(result, isA<List>());
+      },
+    );
+
+    test(
+      'should throw an InternetConnectionException when '
+      'the http call throws a SocketException.',
+      () async {
+        when(() => mockHttpClient.get(tURI)).thenThrow(
+          const SocketException('No internet'),
+        );
+
+        expect(
+          () => apiClient.searchCitiesFromLocation(tLatitude, tLongitude),
+          throwsA(isA<InternetConnectionException>()),
+        );
+      },
+    );
+
+    test(
+      'should throw a ServerException when the http call throws an error.',
+      () async {
+        when(() => mockHttpClient.get(tURI)).thenAnswer(
+          (_) async => http.Response('', 429),
+        );
+
+        expect(
+          () => apiClient.searchCitiesFromLocation(tLatitude, tLongitude),
+          throwsA(isA<ServerException>()),
+        );
+      },
+    );
+  });
 }

@@ -64,4 +64,20 @@ class OpenWeatherAPIClient {
 
     return response;
   }
+
+  Future<List<dynamic>> searchCitiesFromLocation(
+    double latitude,
+    double longitude,
+  ) async {
+    final List<dynamic> response = await get(
+      endpoint: '/geo/1.0/reverse',
+      queryParameters: {
+        'lat': latitude.toString(),
+        'lon': longitude.toString(),
+        'limit': '5',
+      },
+    );
+
+    return response;
+  }
 }
