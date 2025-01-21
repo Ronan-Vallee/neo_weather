@@ -57,4 +57,53 @@ void main() {
       },
     );
   });
+
+  group('getFromLocation', () {
+    const tLatitude = 48.8566;
+    const tLongitude = 2.3522;
+
+    test(
+      'should return a list of CityModel when the call to apiClient is successful.',
+      () async {
+        // arrange
+        when(() => mockAPIClient.searchCitiesFromLocation(any(), any()))
+            .thenAnswer(
+          (_) async => [
+            {
+              'name': 'Paris',
+              'country': 'FR',
+              'state': 'Ile-de-France',
+              'lat': tLatitude,
+              'lon': tLatitude,
+            }
+          ],
+        );
+
+        // act
+        final result = await dataSource.getFromLocation(tLatitude, tLongitude);
+
+        // assert
+        expect(result, [tCityModel]);
+        verify(() =>
+                mockAPIClient.searchCitiesFromLocation(tLatitude, tLongitude))
+            .called(1);
+      },
+    );
+
+    test(
+      'should throw an exception when the call to apiClient is unsuccessful.',
+      () async {
+        // arrange
+        when(() => mockAPIClient.searchCitiesFromLocation(any(), any()))
+            .thenThrow(ServerException());
+
+        // assert
+        expect(() => dataSource.getFromLocation(tLatitude, tLongitude),
+            throwsA(isA<ServerException>()));
+        verify(() =>
+                mockAPIClient.searchCitiesFromLocation(tLatitude, tLongitude))
+            .called(1);
+      },
+    );
+  });
 }
