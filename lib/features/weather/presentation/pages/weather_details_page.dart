@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/entities/city_weather.dart';
 import '../../../../core/theme/app_dimensions.dart';
+import '../widgets/hourly_forecast_widgets.dart';
 import '../widgets/main_weather_section.dart';
 import '../widgets/weather_details_header.dart';
 
@@ -12,6 +13,7 @@ class WeatherDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final weather = cityWeather.weather;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -25,7 +27,8 @@ class WeatherDetailPage extends StatelessWidget {
               spacing: 20.0,
               children: [
                 WeatherDetailsHeader(city: cityWeather.city),
-                MainWeatherSection(weather: cityWeather.weather),
+                MainWeatherSection(weather: weather),
+                HourlyForecastSection(hourlyForecast: weather.hourly)
               ],
             ),
           ),
