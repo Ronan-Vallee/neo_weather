@@ -1,4 +1,5 @@
 import 'package:neo_weather/core/entities/city_weather.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:neo_weather/features/city/data/models/city_model.dart';
 import 'package:neo_weather/features/city/domain/entities/city.dart';
 
@@ -32,3 +33,17 @@ final tCityWeather = CityWeather(
 );
 
 final List<CityWeather> tCityWeatherList = [tCityWeather];
+
+/// *** Others *** ///
+final tPosition = Position(
+  latitude: 10.0,
+  longitude: 20.0,
+  timestamp: DateTime.now(),
+  accuracy: 1.0,
+  altitude: 1.0,
+  heading: 1.0,
+  speed: 1.0,
+  speedAccuracy: 1.0,
+  altitudeAccuracy: 1.0,
+  headingAccuracy: 1.0,
+);

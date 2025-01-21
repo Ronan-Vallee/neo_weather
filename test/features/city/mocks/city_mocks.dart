@@ -3,6 +3,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:neo_weather/features/city/data/datasources/city_local_data_source.dart';
 import 'package:neo_weather/features/city/data/datasources/city_remote_data_source.dart';
 import 'package:neo_weather/features/city/data/repositories/city_repository.dart';
+import 'package:neo_weather/features/city/data/repositories/location_repository.dart';
 import 'package:neo_weather/features/city/domain/usecases/get_saved_cities_weather.dart';
 import 'package:neo_weather/features/city/domain/usecases/remove_city.dart';
 import 'package:neo_weather/features/city/domain/usecases/save_city.dart';
@@ -23,6 +24,8 @@ class MockRemoveCity extends Mock implements RemoveCity {}
 
 // Repository
 class MockCityRepository extends Mock implements CityRepository {}
+
+class MockLocationRepository extends Mock implements LocationRepository {}
 
 // Data Sources
 class MockCityRemoteDataSource extends Mock implements ICityRemoteDataSource {}

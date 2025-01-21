@@ -13,6 +13,7 @@ import 'features/city/domain/usecases/get_saved_cities_weather.dart';
 import 'features/city/domain/usecases/remove_city.dart';
 import 'features/city/domain/usecases/save_city.dart';
 import 'features/city/domain/usecases/search.dart';
+import 'features/city/domain/usecases/search_from_location.dart';
 import 'features/city/presentation/blocs/city_search_bloc/city_search_bloc.dart';
 import 'features/city/presentation/blocs/saved_cities_bloc/saved_cities_bloc.dart';
 import 'features/weather/data/datasources/weather_remote_data_source.dart';
@@ -56,6 +57,12 @@ Future<void> init() async {
 
   // usecases
   locator.registerLazySingleton(() => Search(locator()));
+  locator.registerLazySingleton(
+    () => SearchFromLocation(
+      cityRepository: locator(),
+      locationRepository: locator(),
+    ),
+  );
   locator.registerLazySingleton(
     () => GetSavedCitiesWeather(
       cityRepository: locator(),
