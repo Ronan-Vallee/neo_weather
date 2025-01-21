@@ -2,6 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:neo_weather/features/city/data/datasources/city_local_data_source.dart';
 import 'package:neo_weather/features/city/data/datasources/city_remote_data_source.dart';
+import 'package:neo_weather/features/city/data/datasources/location_data_source.dart';
 import 'package:neo_weather/features/city/data/repositories/city_repository.dart';
 import 'package:neo_weather/features/city/data/repositories/location_repository.dart';
 import 'package:neo_weather/features/city/domain/usecases/get_saved_cities_weather.dart';
@@ -31,6 +32,8 @@ class MockLocationRepository extends Mock implements LocationRepository {}
 class MockCityRemoteDataSource extends Mock implements ICityRemoteDataSource {}
 
 class MockCityLocalDataSource extends Mock implements CityLocalDataSource {}
+
+class MockLocationDataSource extends Mock implements ILocationDataSource {}
 
 // Hive
 class MockCityBox extends Mock implements Box<String> {}

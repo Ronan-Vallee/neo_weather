@@ -8,7 +8,9 @@ import 'features/city/data/datasources/city_local_data_source.dart';
 import 'features/city/data/datasources/city_remote_data_source.dart';
 import 'features/city/data/datasources/location_data_source.dart';
 import 'features/city/data/repositories/city_repository.dart';
+import 'features/city/data/repositories/location_repository.dart';
 import 'features/city/domain/repositories/interface_city_repository.dart';
+import 'features/city/domain/repositories/interface_location_repository.dart';
 import 'features/city/domain/usecases/get_saved_cities_weather.dart';
 import 'features/city/domain/usecases/remove_city.dart';
 import 'features/city/domain/usecases/save_city.dart';
@@ -78,6 +80,9 @@ Future<void> init() async {
       remoteDataSource: locator(),
       localDataSource: locator(),
     ),
+  );
+  locator.registerLazySingleton<ILocationRepository>(
+    () => LocationRepository(locationDataSource: locator()),
   );
 
   // data sources

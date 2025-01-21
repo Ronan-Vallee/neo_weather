@@ -21,3 +21,9 @@ class InternetConnectionFailure extends Failure {
 }
 
 class CacheFailure extends Failure {}
+
+class LocationFailure extends Failure {
+  const LocationFailure({
+    String message = 'Erreur lors de la récupération de la position',
+  }) : super(errorMessage: message);
+}
