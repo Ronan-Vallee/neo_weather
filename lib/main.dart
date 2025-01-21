@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:neo_weather/core/theme/app_colors.dart';
 
 import 'features/city/presentation/blocs/city_search_bloc/city_search_bloc.dart';
@@ -13,6 +15,9 @@ void main() async {
   await Hive.initFlutter();
 
   await di.init();
+
+  initializeDateFormatting('fr_FR', null);
+  Intl.defaultLocale = 'fr_FR';
 
   runApp(MyApp());
 }
