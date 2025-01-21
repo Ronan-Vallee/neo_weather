@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/entities/city_weather.dart';
 import '../../../../core/theme/app_dimensions.dart';
+import '../widgets/daily_forecast_widgets.dart';
 import '../widgets/hourly_forecast_widgets.dart';
 import '../widgets/main_weather_section.dart';
 import '../widgets/miscellaneous_stats_section.dart';
@@ -33,6 +34,7 @@ class WeatherDetailPage extends StatelessWidget {
                 HourlyForecastSection(hourlyForecast: weather.hourly),
                 SunTimingSection(data: weather.current),
                 MiscellaneousStatsSection(data: weather.current),
+                DailyForecastSection(dailyForecast: weather.daily),
               ],
             ),
           ),
