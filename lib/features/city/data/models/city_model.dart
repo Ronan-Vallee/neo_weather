@@ -10,9 +10,10 @@ class CityModel extends City {
   });
 
   factory CityModel.fromJson(Map<String, dynamic> json) {
-    final name = json['local_names'] != null
-        ? json['local_names']['fr'] as String
-        : json['name'] as String;
+    final name =
+        json['local_names'] != null && json['local_names']['fr'] != null
+            ? json['local_names']['fr'] as String
+            : json['name'] as String;
 
     return CityModel(
       name: name,
