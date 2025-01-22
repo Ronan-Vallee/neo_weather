@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_dimensions.dart';
+import '../widgets/city_search_input.dart';
 
 class CitySearchPage extends StatelessWidget {
   const CitySearchPage();
@@ -19,6 +20,7 @@ class CitySearchPage extends StatelessWidget {
             spacing: AppDimensions.paddingRegular,
             children: [
               BackButton(),
+              CitySearchInput(),
             ],
           ),
         ),
