@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/theme/app_dimensions.dart';
 import '../../../city/presentation/blocs/saved_cities_bloc/saved_cities_bloc.dart';
+import '../widgets/city_weather_tile.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage();
@@ -18,7 +19,11 @@ class HomePage extends StatelessWidget {
             return ListView.builder(
               padding: const EdgeInsets.all(AppDimensions.paddingRegular),
               itemCount: state.cityWeatherList.length,
-              itemBuilder: (context, index) {},
+              itemBuilder: (context, index) {
+                return CityWeatherTile(
+                  cityWeather: state.cityWeatherList[index],
+                );
+              },
             );
           },
         ),
