@@ -1,66 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/city_search_bloc/city_search_bloc.dart';
-import '../blocs/saved_cities_bloc/saved_cities_bloc.dart';
+import '../../../../core/theme/app_dimensions.dart';
 
 class CitySearchPage extends StatelessWidget {
   const CitySearchPage();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const SizedBox.shrink(),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: SearchBar(
-                    onSubmitted: (value) => context
-                        .read<CitySearchBloc>()
-                        .add(CitySearchSubmitted(query: value)),
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.my_location_rounded),
-                  onPressed: () => context
-                      .read<CitySearchBloc>()
-                      .add(const CitySearchFromLocationRequested()),
-                ),
-              ],
-            ),
-            Expanded(
-              child: BlocBuilder<CitySearchBloc, CitySearchState>(
-                builder: (context, state) {
-                  return ListView.builder(
-                    itemCount: state.citySearchResults.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(state.citySearchResults[index].name),
-                        trailing: Text(
-                          "${state.citySearchResults[index].country}, ${state.citySearchResults[index].state}",
-                        ),
-                        onTap: () => context.read<SavedCitiesBloc>().add(
-                              SavedCitiesCitySelected(
-                                city: state.citySearchResults[index],
-                              ),
-                            ),
-                      );
-                    },
-                  );
-                },
-              ),
-            )
-          ],
+    return const Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppDimensions.paddingRegular,
+            vertical: AppDimensions.paddingLarge,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: AppDimensions.paddingRegular,
+            children: [
+              BackButton(),
+            ],
+          ),
         ),
       ),
     );
