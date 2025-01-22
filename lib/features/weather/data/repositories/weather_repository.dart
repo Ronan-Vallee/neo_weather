@@ -18,7 +18,7 @@ class WeatherRepository implements IWeatherRepository {
     double longitude,
   ) async {
     try {
-      final result = await remoteDataSource.get(longitude, latitude);
+      final result = await remoteDataSource.get(latitude, longitude);
       return Right(result);
     } on InternetConnectionException {
       return const Left(InternetConnectionFailure());
