@@ -5,7 +5,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 import 'core/theme/app_colors.dart';
-import 'features/city/presentation/blocs/city_search_bloc/city_search_bloc.dart';
 import 'features/city/presentation/blocs/saved_cities_bloc/saved_cities_bloc.dart';
 import 'router.dart';
 import 'service_locator.dart' as di;
@@ -29,16 +28,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => di.locator<CitySearchBloc>(),
-        ),
-        BlocProvider(
-          create: (context) =>
-              di.locator<SavedCitiesBloc>()..add(const SavedCitiesRequested()),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) =>
+          di.locator<SavedCitiesBloc>()..add(const SavedCitiesRequested()),
       child: MaterialApp(
         title: 'NeoWeather',
         theme: ThemeData(
