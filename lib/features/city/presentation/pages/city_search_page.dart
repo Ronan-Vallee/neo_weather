@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_dimensions.dart';
 import '../widgets/city_search_input.dart';
+import '../widgets/city_search_result_section.dart';
 
 class CitySearchPage extends StatelessWidget {
   const CitySearchPage();
@@ -21,6 +22,7 @@ class CitySearchPage extends StatelessWidget {
             children: [
               BackButton(),
               CitySearchInput(),
+              CitySearchResultSection(),
             ],
           ),
         ),
