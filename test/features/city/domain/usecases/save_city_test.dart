@@ -13,6 +13,8 @@ void main() {
   setUp(() {
     mockCityRepository = MockCityRepository();
     usecase = SaveCity(mockCityRepository);
+
+    registerFallbackValue(tCity);
   });
 
   test(
