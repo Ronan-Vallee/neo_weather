@@ -20,7 +20,7 @@ void main() {
   });
 
   group('getWeather', () {
-    const double tLatitude = 1.0;
+    const double tLatitude = 12.0;
     const double tLongitude = 1.0;
 
     final Weather tWeather = tWeatherModel;
