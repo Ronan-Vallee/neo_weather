@@ -6,6 +6,7 @@ import '../../../../core/theme/app_dimensions.dart';
 import '../../../../router.dart';
 import '../../../city/domain/entities/city.dart';
 import '../../../city/presentation/blocs/saved_cities_bloc/saved_cities_bloc.dart';
+import 'city_weather_tile_widgets.dart';
 
 class CityWeatherTile extends StatelessWidget {
   const CityWeatherTile({
@@ -18,6 +19,7 @@ class CityWeatherTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final city = cityWeather.city;
+    final weather = cityWeather.weather;
     return Padding(
       padding: const EdgeInsets.only(top: AppDimensions.paddingRegular),
       child: Dismissible(
@@ -34,6 +36,7 @@ class CityWeatherTile extends StatelessWidget {
             onTap: () => _navigateToWeatherDetails(context, cityWeather),
             child: Container(
               padding: const EdgeInsets.all(AppDimensions.paddingLarge),
+              child: TileContent(city: city, weather: weather),
             ),
           ),
         ),
