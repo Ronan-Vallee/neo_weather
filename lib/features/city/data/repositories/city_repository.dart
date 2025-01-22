@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/city.dart';
 import '../../domain/repositories/interface_city_repository.dart';
@@ -27,7 +26,7 @@ class CityRepository implements ICityRepository {
     try {
       final result = await remoteDataSource.get(cityToSearch);
       return Right(result);
-    } on ServerException {
+    } catch (_) {
       return const Left(SearchFailure());
     }
   }
