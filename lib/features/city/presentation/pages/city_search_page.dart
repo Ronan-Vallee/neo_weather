@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_dimensions.dart';
 import '../../../../service_locator.dart' as di;
 import '../blocs/city_search_bloc/city_search_bloc.dart';
+import '../blocs/saved_cities_bloc/saved_cities_bloc.dart';
 import '../widgets/city_search_input.dart';
 import '../widgets/city_search_result_section.dart';
 
@@ -15,21 +16,23 @@ class CitySearchPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => di.locator<CitySearchBloc>(),
       child: _CitySearchFailureListener(
-        child: const Scaffold(
-          body: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppDimensions.paddingRegular,
-                vertical: AppDimensions.paddingLarge,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: AppDimensions.paddingRegular,
-                children: [
-                  BackButton(),
-                  CitySearchInput(),
-                  CitySearchResultSection(),
-                ],
+        child: _CityAddedListener(
+          child: const Scaffold(
+            body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingRegular,
+                  vertical: AppDimensions.paddingLarge,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: AppDimensions.paddingRegular,
+                  children: [
+                    BackButton(),
+                    CitySearchInput(),
+                    CitySearchResultSection(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -50,6 +53,23 @@ class _CitySearchFailureListener
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.failure?.errorMessage ?? 'Erreur inconnue'),
+              ),
+            );
+          },
+        );
+}
+
+class _CityAddedListener
+    extends BlocListener<SavedCitiesBloc, SavedCitiesState> {
+  _CityAddedListener({super.child})
+      : super(
+          listenWhen: (previous, current) {
+            return current.status == SavedCitiesStatus.loaded;
+          },
+          listener: (context, state) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Ville ajoutée avec succès"),
               ),
             );
           },
