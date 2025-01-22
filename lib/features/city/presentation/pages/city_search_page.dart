@@ -14,25 +14,44 @@ class CitySearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => di.locator<CitySearchBloc>(),
-      child: const Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppDimensions.paddingRegular,
-              vertical: AppDimensions.paddingLarge,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: AppDimensions.paddingRegular,
-              children: [
-                BackButton(),
-                CitySearchInput(),
-                CitySearchResultSection(),
-              ],
+      child: _CitySearchFailureListener(
+        child: const Scaffold(
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimensions.paddingRegular,
+                vertical: AppDimensions.paddingLarge,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: AppDimensions.paddingRegular,
+                children: [
+                  BackButton(),
+                  CitySearchInput(),
+                  CitySearchResultSection(),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
+}
+
+class _CitySearchFailureListener
+    extends BlocListener<CitySearchBloc, CitySearchState> {
+  _CitySearchFailureListener({super.child})
+      : super(
+          listenWhen: (previous, current) {
+            return current.status == CitySearchStatus.failure;
+          },
+          listener: (context, state) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.failure?.errorMessage ?? 'Erreur inconnue'),
+              ),
+            );
+          },
+        );
 }
