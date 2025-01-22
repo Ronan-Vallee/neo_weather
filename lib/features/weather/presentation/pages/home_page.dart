@@ -11,29 +11,48 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocBuilder<SavedCitiesBloc, SavedCitiesState>(
-          buildWhen: (previous, current) =>
-              current.status == SavedCitiesStatus.loaded,
-          builder: (context, state) {
-            return ListView.builder(
-              padding: const EdgeInsets.all(AppDimensions.paddingRegular),
-              itemCount: state.cityWeatherList.length + 1,
-              itemBuilder: (context, index) {
-                if (index == state.cityWeatherList.length) {
-                  return AddCityButton(
-                    isCityListEmpty: state.cityWeatherList.isEmpty,
+    return _SavedCitiesFailureListener(
+      child: Scaffold(
+        body: SafeArea(
+          child: BlocBuilder<SavedCitiesBloc, SavedCitiesState>(
+            buildWhen: (previous, current) =>
+                current.status == SavedCitiesStatus.loaded,
+            builder: (context, state) {
+              return ListView.builder(
+                padding: const EdgeInsets.all(AppDimensions.paddingRegular),
+                itemCount: state.cityWeatherList.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == state.cityWeatherList.length) {
+                    return AddCityButton(
+                      isCityListEmpty: state.cityWeatherList.isEmpty,
+                    );
+                  }
+                  return CityWeatherTile(
+                    cityWeather: state.cityWeatherList[index],
                   );
-                }
-                return CityWeatherTile(
-                  cityWeather: state.cityWeatherList[index],
-                );
-              },
-            );
-          },
+                },
+              );
+            },
+          ),
         ),
       ),
     );
   }
+}
+
+class _SavedCitiesFailureListener
+    extends BlocListener<SavedCitiesBloc, SavedCitiesState> {
+  _SavedCitiesFailureListener({super.child})
+      : super(
+          listenWhen: (previous, current) {
+            return current.status == SavedCitiesStatus.failure;
+          },
+          listener: (context, state) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.failure?.errorMessage ?? 'Erreur inconnue'),
+              ),
+            );
+          },
+        );
 }
