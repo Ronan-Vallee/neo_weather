@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:neo_weather/core/theme/app_colors.dart';
 
+import 'core/theme/app_colors.dart';
 import 'features/city/presentation/blocs/city_search_bloc/city_search_bloc.dart';
 import 'features/city/presentation/blocs/saved_cities_bloc/saved_cities_bloc.dart';
 import 'router.dart';
@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
             surface: AppColors.cardBackground,
             onSurface: AppColors.textPrimary,
           ),
+          iconTheme: const IconThemeData(color: AppColors.textPrimary),
         ),
         onGenerateRoute: _appRouter.onGenerateRoute,
         initialRoute: PagePaths.home,
