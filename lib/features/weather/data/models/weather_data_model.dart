@@ -1,6 +1,5 @@
-import 'package:neo_weather/features/weather/data/models/temperature_model.dart';
-
 import '../../domain/entities/weather_data.dart';
+import 'temperature_model.dart';
 import 'weather_condition_model.dart';
 
 class WeatherDataModel extends WeatherData {
@@ -37,6 +36,16 @@ class WeatherDataModel extends WeatherData {
           ? json['feels_like']
           : {'day': json['feels_like']},
     );
+    final rain = json['rain'] != null
+        ? json['rain'] is Map
+            ? json['rain']['1h'].toDouble()
+            : json['rain'].toDouble()
+        : null;
+    final snow = json['snow'] != null
+        ? json['snow'] is Map
+            ? json['snow']['1h'].toDouble()
+            : json['snow'].toDouble()
+        : null;
 
     return WeatherDataModel(
       dateTime: _fromTimestamp(json['dt'] as int),
@@ -71,8 +80,8 @@ class WeatherDataModel extends WeatherData {
               ? (json['pop'] as int).toDouble()
               : (json['pop'] as double)
           : null,
-      rain: json['rain'] != null ? json['rain'] as double : null,
-      snow: json['snow'] != null ? json['snow'] as double : null,
+      rain: rain,
+      snow: snow,
       conditions: (json['weather'] as List<dynamic>)
           .map<WeatherConditionModel>((e) => WeatherConditionModel.fromJson(e))
           .toList(),
