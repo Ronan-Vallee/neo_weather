@@ -117,7 +117,7 @@ class _CityInformations extends StatelessWidget {
           ),
         ),
         Text(
-          city.state,
+          city.state ?? city.country,
           style: textTheme.bodyMedium?.copyWith(
             color: AppColors.textSecondary,
           ),

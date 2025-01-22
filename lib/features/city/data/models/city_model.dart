@@ -20,7 +20,7 @@ class CityModel extends City {
       latitude: json['lat'] as double,
       longitude: json['lon'] as double,
       country: json['country'] as String,
-      state: json['state'] as String,
+      state: json['state'] as String?,
     );
   }
 

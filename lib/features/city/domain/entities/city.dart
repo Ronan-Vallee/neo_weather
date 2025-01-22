@@ -5,7 +5,7 @@ class City extends Equatable {
   final double latitude;
   final double longitude;
   final String country;
-  final String state;
+  final String? state;
 
   const City({
     required this.name,

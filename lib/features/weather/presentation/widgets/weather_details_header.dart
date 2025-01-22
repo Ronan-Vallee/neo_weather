@@ -66,7 +66,7 @@ class _CityWidget extends StatelessWidget {
           ),
         ),
         Text(
-          city.state,
+          city.state ?? city.country,
           style: textTheme.bodySmall?.copyWith(
             color: AppColors.textSecondary,
           ),
