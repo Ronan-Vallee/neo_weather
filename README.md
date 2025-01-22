@@ -15,10 +15,10 @@ Des options facultatives étaient proposées. J'ai choisi d'en réaliser 2 sur l
 
 Options facultatives :
 
-- [] Persister les données afin de pouvoir utiliser l'application offline
+- [ ] Persister les données afin de pouvoir utiliser l'application offline
 - [x] Récupérer les informations météo depuis votre localisation actuelle
 - [x] Ajouter des Tests Unitaires
-- [] Ajouter une documentation
+- [ ] Ajouter une documentation
 
 ## Screenshots
 <p align="center">
